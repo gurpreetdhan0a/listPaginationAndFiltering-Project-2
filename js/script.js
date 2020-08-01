@@ -9,7 +9,6 @@ FSJS project 2 - List Filter and Pagination
 /*** 
 Global variables
 ***/
-
 const studentList = document.querySelector('.student-list');
 const maxPerPage = 10;
 
@@ -17,7 +16,6 @@ const maxPerPage = 10;
 const allStudents = studentList.children;
 //totalpages contains information about how many page numbers to be displayed according to the list
 const totalPages = Math.ceil(allStudents.length/maxPerPage);
-
 const page = document.querySelector('.page');
 
 /*** 
@@ -82,7 +80,7 @@ const appendPageLinks = (list) =>
                aTag[i].className='';
                e.target.className = 'active';
             }
-      }
+         }  
       });
    }
 }
@@ -90,3 +88,31 @@ const appendPageLinks = (list) =>
 showPage(allStudents, 1);
 //calling appendPageLinks() function
 appendPageLinks(allStudents);
+
+const pageHeader = document.querySelector('.page-header');
+const studentsName = document.querySelectorAll('.student-item h3');
+const newDiv = document.createElement('input');
+newDiv.className = 'newDiv';
+pageHeader.appendChild(newDiv);
+const search = document.querySelector('.newDiv');
+search.placeholder = 'Search for students';
+search.focus();
+
+search.addEventListener('keyup', function(e)
+{
+   let searchStr = e.target.value.toString().toLowerCase();
+   
+
+   for(let i=0; i<allStudents.length ; i++)
+   {
+      let searchName = studentsName[i].textContent;
+      if(searchName.indexOf(searchStr) > -1)
+      {
+         allStudents[i].style.display = 'block';
+      }else
+      {
+         allStudents[i].style.display = 'none';
+      }
+   }
+})
+
